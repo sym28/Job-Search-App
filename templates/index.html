@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Search</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+  
+  <!-- <div class="section grey-text text-darken-2" style="margin-bottom: 20px;">
+  </div> -->
+
+  
+  <div class="section grey-text text-lighten-3" id="jumbotron">
+    <div class="container" style="margin-bottom: 115px;">
+      <h1 class="center-align">Start your Search</h1>
+      <h5 class="center-align">A web scraper that compiles searches from different job boards into one place</h5>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <form class="col s12" action="{{url_for('views.homepage')}}" method="POST">
+          <div class="row">
+            <div class="input-field col s5">
+              <i class="material-icons prefix">search</i>
+              <input value="Junior Developer" class="validate" type="text" id="what" name="what">
+              <label for="what">What</label>
+            </div>
+            <div class="input-field col s5">
+              <i class="material-icons prefix">location_on</i>
+              <input value="London" type="text" id="where" name="where">
+              <label for="where">Where</label>
+            </div>
+            <div class="input-field col s2">
+              <button onclick="loadData()" class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+  <div class="container center-align" id="loader" style="margin-top: 10%;">
+    <div class="section">
+      <div class="progress" style="width: 95%;">
+        <div class="indeterminate"></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="section">
+  <div class="container">
+    <div class="row">
+
+      {% if jobList1 %}
+        {% for job in jobList1 %}
+
+          <div class="col s12 m6 xl4">
+            <div class="card small hoverable">
+              <div class="card-stacked">
+                <div class="card-content">
+                  <span class="card-title">{{ job['title'] }}</span>
+                  <div class="divider"></div>
+                  <blockquote>
+                    <p>Date: {{ job['posted'] }}</p>
+                  </blockquote>
+                  <blockquote>
+                    <p>Salary: {{ job['salary'] }}</p>
+                  </blockquote>
+                </div>
+                <div class="card-action">
+                  <a href="{{ job['link'] }}" target="_blank">Apply</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endfor %}
+      {% endif %}
+
+      {% if jobList2 %}
+        {% for job in jobList2 %}
+
+          <div class="col s12 m6 xl4">
+            <div class="card small hoverable">
+              <div class="card-stacked">
+                <div class="card-content">
+                  <span class="card-title">{{ job['title'] }}</span>
+                  <div class="divider"></div>
+                  <blockquote>
+                    <p>Date: {{ job['posted'] }}</p>
+                  </blockquote>
+                  <blockquote>
+                    <p>Salary: {{ job['salary'] }}</p>
+                  </blockquote>
+                </div>
+                <div class="card-action">
+                  <a href="{{ job['link'] }}" target="_blank">Apply</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endfor %}
+      {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src={{url_for('static', filename='script.js')}}></script>
+</body>
+</html>
